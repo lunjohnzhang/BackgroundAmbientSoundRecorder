@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "958274795885",
+    "firebase_url": "https://ambientsoundrecorder.firebaseio.com",
+    "project_id": "ambientsoundrecorder",
+    "storage_bucket": "ambientsoundrecorder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958274795885:android:7eb1dbbcbfe453e6",
+        "android_client_info": {
+          "package_name": "com.example.demo06_service"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958274795885-994faq6oqvpm7t5ih5rkbqknj9qlfvlj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzbqH9qxJX8_XF6OMoWg_iT18gnoGKEzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958274795885-994faq6oqvpm7t5ih5rkbqknj9qlfvlj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
