@@ -76,13 +76,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(backLiveAudioRecordService != null) {
                     stopService(backLiveAudioRecordService);
+
                 }
             }
         });
 
 
         // ********** set up database **********
-        readAmbientFromDB();
+        ambientSounds.readAmbientFromDB(mDatabaseRef, false);
+        Toast.makeText(MainActivity.this, "Database loaded", Toast.LENGTH_LONG).show();
+
     }
 
     // ************ Helper functions **************
@@ -106,36 +109,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void readAmbientFromDB() {
-        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // for every set of parameter
-                Iterator<DataSnapshot> recordingSet = dataSnapshot.getChildren().iterator();
-                while(recordingSet.hasNext()) {
-                    DataSnapshot item = recordingSet.next();
-                    String key = item.getKey();
 
-                    // for every timestamp-amplitude pair
-                    Hashtable<String, Double> amplitudes = new Hashtable<>();
-                    Iterator<DataSnapshot> amplitudesRaw = item.getChildren().iterator();
-                    while(amplitudesRaw.hasNext()) {
-                        DataSnapshot ampPair = amplitudesRaw.next();
-                        String timestamp = ampPair.getKey();
-                        Double amp = Double.parseDouble(ampPair.getValue().toString());
-                        amplitudes.put(timestamp, amp);
-                    }
-                    ambientSounds.put(key, amplitudes);
-                }
-                Toast.makeText(MainActivity.this, "Database loaded", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-    }
 
     // ************ request permission code **************
     @Override

@@ -107,7 +107,8 @@ public class BackLiveAudioRecorder extends Service {
                     // send the data to the heroku server and then to the front end
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put(timestamp, lastLevel);
+                        jsonObject.put("time", System.currentTimeMillis());
+                        jsonObject.put("noiseLevel", lastLevel);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -300,9 +301,11 @@ public class BackLiveAudioRecorder extends Service {
                 // smooth out the data --> calculate average of every second
                 Hashtable<String, Double> smoothedAmbient = smoothAmbientNoiseData(currAmbient);
 
+                // refresh the data model stored locally
+                ambientSounds.readAmbientFromDB(mDatabaseRef, true);
+
                 // push the data to the database
                 ambientSounds.put(testKey, smoothedAmbient);
-
                 mDatabaseRef.setValue(ambientSounds);
                 Log.d(TAG, "Testing data uploaded to database");
             }
